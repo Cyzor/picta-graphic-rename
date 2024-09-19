@@ -36,17 +36,11 @@ To install, double-click the file **`Graphic iDraw Rename Selection.idplugin`** 
 
 ![00-graphic-plugin-icon](img/00-graphic-plugin-icon.png)
 
-Feel free to change the plugin's displayed name at any time. Examples include:
-
-- Graphic Renamer.idplugin
-- GrafikUmbenennen.idplugin
-- iDraw Renombrar Lote.idplugin
-
 ### Add Plugin:
 
 ![01-graphic-plugin-install](img/01-graphic-plugin-install.png)
 
-Or you can manually drag the file to its destination in Graphic's Application Support folder in your Library Folder:
+Or you can manually drag the file to its destination in Graphic's `Application Support` folder in your `Library` folder:
 
 `~/Library/Containers/com.indeeo.idraw/Data/Library/Application Support/iDraw/Plug-ins/Graphic iDraw Rename Selection.idplugin`
 
@@ -70,11 +64,21 @@ The plugin works for groups and layers, too.
 
 Select **Edit > Undo Name** to revert the change.
 
-You can assign a custom keyboard shortcut to the plugin using **System Settings > Keyboard > Keyboard Shortcuts**, or with a third-party utility like Keyboard Maestro by Stairways Software.
+## Details
+
+Feel free to change the plugin's filename at any time. Alternatives include:
+
+- Graphic Renamer.idplugin
+- GrafikUmbenennen.idplugin
+- iDraw Renombrar Lote.idplugin
+
+You can assign a custom keyboard shortcut to the plugin using **System Settings > Keyboard > Keyboard Shortcuts**, or with a third-party utility like Keyboard Maestro by Stairways Software:
 
 https://www.keyboardmaestro.com/
 
 The Graphic `idplugin` format is a JavaScript/CocoaScript file saved as plain text. Open it using any text editor to see how it works or make changes.
+
+![07-script-content-example](img/07-script-content-example.png)
 
 ## Troubleshooting
 
