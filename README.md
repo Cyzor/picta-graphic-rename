@@ -30,11 +30,17 @@ Drawing applications like Picta Graphic often create documents with hundreds of 
 
 ## Installation
 
-To install, double-click the file **`Graphic iDraw Rename Selection.idplugin`** to launch Graphic, which will ask if you'd like to add the plugin to your Plugins menu.
+To install, double-click the file **`Graphic iDraw Rename Selection.idplugin`** to launch Graphic, which should then ask if you'd like to add the plugin to your Plugins menu.
 
 ### Plugin File:
 
 ![00-graphic-plugin-icon](img/00-graphic-plugin-icon.png)
+
+Feel free to change the plugin's displayed name at any time. Examples include:
+
+- Graphic Renamer.idplugin
+- GrafikUmbenennen.idplugin
+- iDraw Renombrar Lote.idplugin
 
 ### Add Plugin:
 
@@ -72,10 +78,10 @@ The Graphic `idplugin` format is a JavaScript/CocoaScript file saved as plain te
 
 ## Troubleshooting
 
-- If the plugin fails to load, ensure you have Picta Graphic version 3.1 or later installed.
-- macOS security settings may block the plugin. Check under **System Settings > Security & Privacy** if a prompt appears.
+If the plugin fails to load, ensure you have Picta Graphic version 3.1 or later installed.
+macOS security settings may block the plugin. Check under **System Settings > Security & Privacy** if a prompt appears.
 
-This plugin relies on Apple [Cocoa APIs](<https://en.wikipedia.org/wiki/Cocoa_(API)>) and doesn't work on other platforms like Microsoft Windows.
+This plugin relies on Apple's [Cocoa APIs](<https://en.wikipedia.org/wiki/Cocoa_(API)>) and is not compatible with other platforms, such as Microsoft Windows. Additionally, it is only available in English and may exhibit anomalies when used with other language settings.
 
 Graphic hasn't received updates since 2018, and might stop working in future macOS versions.
 
