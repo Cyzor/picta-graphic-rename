@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [About](#about)
-- [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
 
