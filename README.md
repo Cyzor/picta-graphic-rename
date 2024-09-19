@@ -30,7 +30,7 @@ Drawing applications like Picta Graphic often create documents with hundreds of 
 
 ## Installation
 
-To install, double-click the file **`Graphic iDraw Rename Selection.idplugin`** to launch Graphic, which will ask if you'd like to add the plugin to your Pluigns menu.
+To install, double-click the file **`Graphic iDraw Rename Selection.idplugin`** to launch Graphic, which will ask if you'd like to add the plugin to your Plugins menu.
 
 ### Plugin File:
 
