@@ -1,0 +1,120 @@
+/**
+ * Autodesk Graphic (iDraw) Rename Script
+ * Language: JavaScript / CocoaScript
+ * 
+ * Author: Jay Petronis, Architectural Research Consultants, Incorporated
+ * Created: 2024-08-29
+ * Last Updated: 2024-09-03
+ * Version: 0.1
+ * 
+ * Description:
+ * This script provides a user interface for renaming selected shapes or layers
+ * in Autodesk Graphic (formerly iDraw). It allows batch renaming of multiple
+ * items and pre-populates the input with the name of the first selected item.
+ * 
+ * Usage:
+ * 1. Select one or more shapes or layers in your Autodesk Graphic document.
+ * 2. Run this script from the Scripts menu.
+ * 3. Enter the new name in the dialog box that appears.
+ * 4. Click "Rename" to apply the new name to all selected items.
+ * 
+ * https://graphic.com/plugins/api/
+ *
+ * (Documentation is unreadable, but page source code is still present.)
+ *
+ * Note: If no shapes are selected, the script will attempt to rename selected layers.
+ * If neither shapes nor layers are selected, the script will log a message and exit.
+ */
+
+// Get the currently active document
+function getActiveDocument() {
+    return app.activeDocument();
+}
+
+// Get the active layer in the current document
+function getActiveLayer() {
+    return getActiveDocument().activeLayer();
+}
+
+// Get an array of all selected layers
+function getSelectedLayers() {
+    return getActiveDocument().layers().filter(layer => layer.selected());
+}
+
+// Get an array of all selected shapes
+function getSelectedShapes() {
+    return getActiveDocument().selectedShapes();
+}
+
+// Helper function to handle singular/plural text
+function pluralize(count, singular, plural) {
+    return count === 1 ? singular : plural;
+}
+
+// Configure dialog box
+function buildAlert(itemCount, itemType, defaultName) {
+    const alert = NSAlert.alloc().init();
+    const itemText = pluralize(itemCount, itemType, itemType + "s");
+    
+    alert.setMessageText(`Rename ${itemCount} ${itemText}:`);
+    alert.addButtonWithTitle("Rename");
+    alert.addButtonWithTitle("Cancel");
+    
+    const input = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    input.setStringValue(defaultName);
+    alert.setAccessoryView(input);
+    
+    return { alert, input };
+}
+
+// Rename all items in the given array with the new name
+function renameItems(items, newName) {
+    items.forEach(item => item.setName(newName));
+}
+
+// Get the default name based on selected items
+// function getDefaultName(items) {
+//     if (items.length === 0) return "";
+//     const firstItemName = items[0].name();
+//     return items.every(item => item.name() === firstItemName) ? firstItemName : "";
+// }
+
+
+// Get the default name based on the first selected item
+function getDefaultName(items) {
+    return items.length > 0 ? items[0].name() : "";
+}
+
+// Main function to handle the renaming action
+function handleRenameAction() {
+    const shapes = getSelectedShapes();
+    const activeLayers = getSelectedLayers();
+
+    let itemsToRename, itemType;
+
+    // Determine whether to rename shapes or layers
+    if (shapes.length > 0) {
+        itemsToRename = shapes;
+        itemType = "item";
+    } else if (activeLayers.length > 0) {
+        itemsToRename = activeLayers;
+        itemType = "layer";
+    } else {
+        log("No shapes selected and no active layer.");
+        return;
+    }
+
+    // Get the default name based on selected items
+    const defaultName = getDefaultName(itemsToRename);
+
+    // Show the rename dialog and process the result
+    const { alert, input } = buildAlert(itemsToRename.length, itemType, defaultName);
+    const response = alert.runModal();
+
+    if (response === NSAlertFirstButtonReturn) {
+        renameItems(itemsToRename, input.stringValue());
+    }
+}
+
+// Execute the rename action
+handleRenameAction();
