@@ -92,7 +92,7 @@ macOS security settings may block the plugin. Check under **System Settings > Se
 - This plugin relies on Apple's [Cocoa APIs](<https://en.wikipedia.org/wiki/Cocoa_(API)>) and is not compatible with other platforms, such as Microsoft Windows. Additionally, it is only available in English and may exhibit anomalies when used with other language settings.
 - As Graphic hasn't received updates since 2018, it might become incompatible with future macOS versions.
 - The input field accepts text of any length and format. However, inputting an excessively large block of text, such as a novel-length string of emojis, may lead to performance degradation or an application crash.
-- Graphic's plugin mechanism may not recognize symbolic links or aliases. But hard links (`ln -h`) seem to be valid.
+- Graphic's plugin mechanism might not recognize symbolic links or aliases. But [hard links](https://en.wikipedia.org/wiki/Hard_link) seem to be valid.
 
 ## Version History
 
