@@ -1,6 +1,6 @@
 # Picta Graphic Rename Plugin
 
-## Table of Contents
+## Contents
 
 - [About](#about)
 - [Installation](#installation)
@@ -8,14 +8,16 @@
 
 ## About
 
-This plugin for [Picta Graphic](https://graphic.com/) (formerly known as Autodesk Graphic or Indeeo iDraw) can rename multiple Graphic objects simultaneously.
+This plugin for [Picta Graphic](https://graphic.com/) (formerly known as Autodesk Graphic or Indeeo iDraw) can rename multiple objects simultaneously.
 
-Once installed, select an item, choose **Graphic > Plugins > Graphic iDraw Rename Selection**, and assign a new name. Note that every selected element will get the same name. Select **Edit > Undo Name** to revert the action.
+Once installed, select an item, choose **Graphic > Plugins > Graphic iDraw Rename Selection**, and assign a new name. Note that selected element will get the same name. Select **Edit > Undo Name** to revert the action.
 
 Drawing applications like Picta Graphic often create documents with hundreds of objects and layers. To keep elements organized, you may need to assign recognizable names for each. By default, you can rename one item at a time. This plugin can rename all of them at once.
 
 - Author: Jay Petronis
-- Website: [https://arcplanning.com/]
+- Website:
+- [https://github.com/Cyzor/picta-graphic-rename]
+- [https://arcplanning.com/]
 
 ## Features
 
@@ -65,11 +67,12 @@ Select **Edit > Undo Name** to revert the change.
 
 ## Details
 
-Feel free to change the plugin's filename at any time. Alternatives include:
+Feel free to change the plugin's filename at any time, but keep the "`idplugin`" extension intact. Alternative names include:
 
 - Graphic Renamer.idplugin
 - GrafikUmbenennen.idplugin
 - iDraw Renombrar Lote.idplugin
+- この選択範囲の名前を変更する.idplugin
 
 You can assign a custom keyboard shortcut to the plugin using **System Settings > Keyboard > Keyboard Shortcuts**, or with a third-party utility like Keyboard Maestro by Stairways Software:
 
@@ -84,15 +87,22 @@ The Graphic `idplugin` format is a JavaScript/CocoaScript file saved as plain te
 If the plugin fails to load, ensure you have Picta Graphic version 3.1 or later installed.
 macOS security settings may block the plugin. Check under **System Settings > Security & Privacy** if a prompt appears.
 
-This plugin relies on Apple's [Cocoa APIs](<https://en.wikipedia.org/wiki/Cocoa_(API)>) and is not compatible with other platforms, such as Microsoft Windows. Additionally, it is only available in English and may exhibit anomalies when used with other language settings.
+### Known Issues
 
-Graphic hasn't received updates since 2018, and might stop working in future macOS versions.
+- This plugin relies on Apple's [Cocoa APIs](<https://en.wikipedia.org/wiki/Cocoa_(API)>) and is not compatible with other platforms, such as Microsoft Windows. Additionally, it is only available in English and may exhibit anomalies when used with other language settings.
+- As Graphic hasn't received updates since 2018, it might become incompatible with future macOS versions.
+- The input field accepts text of any length and format. However, inputting an excessively large block of text, such as a novel-length string of emojis, may lead to performance degradation or an application crash.
+- Graphic's plugin mechanism may not recognize symbolic links or aliases. But hard links (`ln -h`) seem to be valid.
 
 ## Version History
 
-2024-09-03
+### 0.1.0 - 2024-09-20
 
-- Version 0.1: Initial release
+- Added instructions and usage notes
+
+### 0.0.0 - 2024-08-29
+
+- Initial release
 
 ## License
 
@@ -109,4 +119,6 @@ For further information about Graphic plugins, visit:
 
 Developed for Graphic 3.1 for macOS Sonoma 14.0.
 
-2024-09-18
+### Last Updated
+
+2024-09-19
