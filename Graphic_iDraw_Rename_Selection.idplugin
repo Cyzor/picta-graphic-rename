@@ -18,108 +18,61 @@
  * 3. Enter the new name in the dialog box that appears.
  * 4. Click "Rename" to apply the new name to all selected items.
  *
+ * Note: Compatible with macOS 15.6 on Apple Silicon (M-series processors)
+ *
  * https://graphic.com/plugins/api/
- *
- * (Documentation is unreadable, but page source code is still present.)
- *
- * Note: If no shapes are selected, the script will attempt to rename selected layers.
- * If neither shapes nor layers are selected, the script will log a message and exit.
  */
 
-// Get the currently active document
-function getActiveDocument() {
-  return app.activeDocument();
+// Get selected shapes
+var shapes = app.activeDocument().selectedShapes();
+
+// Get selected layers
+var allLayers = app.activeDocument().layers();
+var selectedLayers = [];
+for (var i = 0; i < allLayers.length; i++) {
+  if (allLayers[i].selected()) {
+	selectedLayers.push(allLayers[i]);
+  }
 }
 
-// Get the active layer in the current document
-function getActiveLayer() {
-  return getActiveDocument().activeLayer();
-}
+// Determine what to rename (shapes take priority over layers)
+var items = shapes.length > 0 ? shapes : selectedLayers;
 
-// Get an array of all selected layers
-function getSelectedLayers() {
-  return getActiveDocument()
-    .layers()
-    .filter((layer) => layer.selected());
-}
-
-// Get an array of all selected shapes
-function getSelectedShapes() {
-  return getActiveDocument().selectedShapes();
-}
-
-// Helper function to handle singular/plural text
-function pluralize(count, singular, plural) {
-  return count === 1 ? singular : plural;
-}
-
-// Configure dialog box
-function buildAlert(itemCount, itemType, defaultName) {
-  const alert = NSAlert.alloc().init();
-  const itemText = pluralize(itemCount, itemType, itemType + "s");
-
-  alert.setMessageText(`Rename ${itemCount} ${itemText}:`);
+if (items.length === 0) {
+  log("No shapes or layers selected.");
+} else {
+  // Get default name from first selected item, handle null/undefined
+  var defaultName = items[0].name();
+  if (!defaultName || defaultName === null || defaultName === undefined) {
+	defaultName = "";
+  }
+  
+  // Build item type text for dialog
+  var itemType = shapes.length > 0 ? "shape" : "layer";
+  var itemText = items.length === 1 ? itemType : itemType + "s";
+  
+  // Create alert dialog
+  var alert = NSAlert.alloc().init();
+  alert.setMessageText("Rename " + items.length + " " + itemText + ":");
   alert.addButtonWithTitle("Rename");
   alert.addButtonWithTitle("Cancel");
-
-  const input = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+  
+  // Create text input field with object literal frame (required for Apple Silicon compatibility)
+  var frame = {origin: {x: 0, y: 0}, size: {width: 300, height: 24}};
+  var input = NSTextField.alloc().initWithFrame(frame);
   input.setStringValue(defaultName);
   alert.setAccessoryView(input);
-
-  return { alert, input };
-}
-
-// Rename all items in the given array with the new name
-function renameItems(items, newName) {
-  items.forEach((item) => item.setName(newName));
-}
-
-// Get the default name based on selected items
-// function getDefaultName(items) {
-//     if (items.length === 0) return "";
-//     const firstItemName = items[0].name();
-//     return items.every(item => item.name() === firstItemName) ? firstItemName : "";
-// }
-
-// Get the default name based on the first selected item
-function getDefaultName(items) {
-  return items.length > 0 ? items[0].name() : "";
-}
-
-// Main function to handle the renaming action
-function handleRenameAction() {
-  const shapes = getSelectedShapes();
-  const activeLayers = getSelectedLayers();
-
-  let itemsToRename, itemType;
-
-  // Determine whether to rename shapes or layers
-  if (shapes.length > 0) {
-    itemsToRename = shapes;
-    itemType = "item";
-  } else if (activeLayers.length > 0) {
-    itemsToRename = activeLayers;
-    itemType = "layer";
-  } else {
-    log("No shapes selected and no active layer.");
-    return;
-  }
-
-  // Get the default name based on selected items
-  const defaultName = getDefaultName(itemsToRename);
-
-  // Show the rename dialog and process the result
-  const { alert, input } = buildAlert(
-    itemsToRename.length,
-    itemType,
-    defaultName
-  );
-  const response = alert.runModal();
-
-  if (response === NSAlertFirstButtonReturn) {
-    renameItems(itemsToRename, input.stringValue());
+  
+  // Show dialog and get user response
+  var response = alert.runModal();
+  
+  // If user clicked "Rename" (button return value = 1000)
+  if (response == 1000) {
+	var newName = input.stringValue();
+	
+	// Apply new name to all selected items
+	for (var i = 0; i < items.length; i++) {
+	  items[i].setName(newName);
+	}
   }
 }
-
-// Execute the rename action
-handleRenameAction();
