@@ -2,10 +2,10 @@
  * Autodesk Graphic (iDraw) Rename Script
  * Language: JavaScript / CocoaScript
  *
- * Author: Jay Petronis, Architectural Research Consultants, Incorporated
+ * Author: Architectural Research Consultants, Incorporated
  * Created: 2024-08-29
- * Last Updated: 2024-09-03
- * Version: 0.1.0
+ * Last Updated: 2025-11-11
+ * Version: 0.2.0
  *
  * Description:
  * This script provides a user interface for renaming selected shapes or layers
@@ -14,7 +14,7 @@
  *
  * Usage:
  * 1. Select one or more shapes or layers in your Autodesk Graphic document.
- * 2. Run this script from the Scripts menu.
+ * 2. Run this script from the Plugins menu.
  * 3. Enter the new name in the dialog box that appears.
  * 4. Click "Rename" to apply the new name to all selected items.
  *
